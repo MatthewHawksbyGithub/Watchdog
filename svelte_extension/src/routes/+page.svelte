@@ -16,16 +16,30 @@
                 prompt: "Check if there are anything scam related in the following text." + text
             })
         }).then(res=>{console.log(res); return res.text();}).then(
-            txt => response = txt
+            txt =>{
+                response = txt;
+                console.log(response);
+            }
+
         )
     }
 </script>
 
 <div class="container">
+    <div class="text-line">Watch out for suspicious stuff with</div>
     <div class="title">Watchdog</div>
-    <div class="text-line">Enter suspicious text here</div>
-    <textarea class="text-box" rows="4"></textarea>
-    <a href="#" class="button">Submit</a>
+    <div class="text-line2">Enter suspicious text here</div>
+    <textarea class="text-box" rows="4" bind:value={text}></textarea>
+    <button class="button" on:click={askGPT}>Analyse Text</button>
+
+    {#if response}
+    <Divider/>
+    GPT Response:
+    <p>{response}</p>
+
+    {:else}
+
+    {/if}
 </div>
 
 <!--
@@ -50,32 +64,41 @@
 -->
 <style>
     /* CSS styles */
-    body {
-    font-family: Arial, sans-serif;
-    }
+    @import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 
     .container {
-    background-color: #ffffff;
+    
+    font-family: Arial, sans-serif;
+    background-color: #807e7e;
+    font-size: 12px;
     border-radius: 10px;
     padding: 20px;
     width: 400px;
     margin: 0 auto;
+    margin-left: 10px;
     }
-
-    .title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
+    .title{
+        font-size: 36px;
+        
     }
 
     .text-line {
-    font-size: 12px;
-    text-align: center;
+    font-family: Manrope, sans-serif;
+    font-size: 16px;
+    text-align: left;
     margin-bottom: 10px;
+    margin-left:0px;
+    }
+
+    .text-line2 {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left:5px;
     }
 
     .text-box {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -93,5 +116,8 @@
     text-decoration: none;
     border-radius: 5px;
     margin-left: auto;
+    font-size: 16px;
+    
+    font-family: Manrope, sans-serif;
     }
 </style>
